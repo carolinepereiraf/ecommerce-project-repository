@@ -1,6 +1,6 @@
 package br.com.ecommerce.services;
 
-import org.springframework.data.neo4j.conversion.Result;
+import java.util.List;
 
 import br.com.ecommerce.domain.Product;
 
@@ -10,7 +10,9 @@ public interface ProductService {
 	
 	void delete(Product product);
 	
-	Product findById(long id);
+	Product findByProductId(long id);
 	
-	Result<Product> findAll();
+	List<Product> findAll();
+	
+	List<Product> findAllLimitBy(int limit);
 }

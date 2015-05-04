@@ -16,7 +16,6 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Person create(Person person) {
-		System.out.println("PersonServiceImpl.create()");
 		return personRepository.save(person);
 	}
 

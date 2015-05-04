@@ -36,13 +36,13 @@ public class ProductsResource {
 	@GET
 	@Produces("application/json")
 	public List<Product> getProducts(@QueryParam("limit") int limit) {
-		
-		log.info("Returning products, limit = " + limit);
 
 		if (limit == 0) {
+			log.info("Returning all products");
 			return productUtil.listAll();
 		}
-		return productUtil.listAll();
+		log.info("Returning products, limit = " + limit);
+		return productUtil.listAllLimitBy(limit);
 	}
 
 	/**
@@ -79,9 +79,14 @@ public class ProductsResource {
 			@FormParam("price") Double price, @FormParam("name") String name) {
 		
 		Product product = productUtil.createProduct(productId, name, price);
-		log.info("Person " + product.getName() + " successfully added.");
-
-		String message = product.getName() + " adicionado com sucesso.";
+		String message = null;
+		if (product == null) {
+			log.info("A product with this productId already exists.");
+			message = "Já existe um produto para este ID.";
+		} else {
+			log.info("Product " + product.getName() + " successfully added.");
+			message = product.getName() + " adicionado com sucesso.";
+		}
 		return message;
 	}
 

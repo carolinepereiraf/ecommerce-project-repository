@@ -1,7 +1,8 @@
 package br.com.ecommerce.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.stereotype.Service;
 
 import br.com.ecommerce.dao.ProductRepository;
@@ -24,13 +25,20 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product findById(long id) {
-		return productRepository.findById(id);
+	public Product findByProductId(long id) {
+		return productRepository.getProductByProductId(id);
 	}
 
 	@Override
-	public Result<Product> findAll() {
-		return productRepository.findAll();
+	public List<Product> findAll() {
+		return productRepository.getAllProducts();
 	}
+
+	@Override
+	public List<Product> findAllLimitBy(int limit) {
+		return productRepository.getAllProductsLimitBy(limit);
+	}
+
+	
 
 }

@@ -10,6 +10,8 @@ public class Product {
 	@GraphId
 	private Long id;
 	
+	private long productId;
+
 	private Double price;
 	
 	private String name;
@@ -18,8 +20,12 @@ public class Product {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
 	public Double getPrice() {
@@ -45,6 +51,7 @@ public class Product {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + (int) (productId ^ (productId >>> 32));
 		return result;
 	}
 
@@ -72,6 +79,9 @@ public class Product {
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
+		if (productId != other.productId)
+			return false;
 		return true;
 	}
+
 }

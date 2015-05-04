@@ -1,12 +1,9 @@
 package br.com.ecommerce.util;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.neo4j.conversion.Result;
 
 import br.com.ecommerce.domain.Product;
 import br.com.ecommerce.services.ProductService;
@@ -34,7 +31,7 @@ public class ProductUtil {
 	 */
 	public Product createProduct(long id, String name, Double price) {
 		Product product = new Product();
-		product.setId(id);
+		product.setProductId(id);
 		product.setName(name);
 		product.setPrice(price);
 		return service.create(product);
@@ -47,7 +44,7 @@ public class ProductUtil {
 	 * @return
 	 */
 	public Product getOneProductById(long id) {
-		return service.findById(id);
+		return service.findByProductId(id);
 	}
 	
 	/**
@@ -66,12 +63,12 @@ public class ProductUtil {
 	}
 	
 	public List<Product> listAll() {
-		List<Product> list = new ArrayList<Product>();
-		Result<Product> result = service.findAll();
-		Iterator<Product> iterator = result.iterator();
-		while (iterator.hasNext()) {
-			list.add(iterator.next());
-		}
+		List<Product> list = service.findAll();
+		return list;
+	}
+	
+	public List<Product> listAllLimitBy(int limit) {
+		List<Product> list = service.findAllLimitBy(limit);
 		return list;
 	}
 }
