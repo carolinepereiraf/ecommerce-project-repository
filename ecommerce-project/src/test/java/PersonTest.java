@@ -29,7 +29,7 @@ public class PersonTest {
 				.getBean("personService");
 		System.out.println("Person Service created");
 
-		System.out.println("******** Creating person: ***********");
+/*		System.out.println("******** Creating person: ***********");
 
 		Person person = createPerson(1, "pedro", "pedro@gmail.com");
 		createPerson(service, person);
@@ -65,6 +65,14 @@ public class PersonTest {
 
 		System.out.println("******* Find all limit by ********");
 		getAllPeopleLimitBy(service, 1);
+		
+		 */
+		/*Person p = getOnePersonById(service, 1);
+		deletePerson(service, p);
+		*/
+		
+		System.out.println("******* Find all ********");
+		getAllPeople(service);
 	}
 
 	/**

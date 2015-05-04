@@ -112,4 +112,55 @@ public class PeopleResource {
 		return message;
 	}
 
+	/**
+	 * Adiciona relação BOUGHT entre pessoa e produto
+	 * @param personId
+	 * @param productId
+	 * @return
+	 */
+	@Path("/{personId}/bought/{productId}")
+	@POST
+	@Consumes("text/xml")
+	@Produces("application/json")
+	public String addBoughtRelationship(@PathParam("personId") int personId, @PathParam("productId") int productId){
+		personUtil.addBoughtProduct(personId, productId);
+		
+		log.info("Created BOUGHT relationship between product " + productId + " and Person " + personId);
+		return "Relação de compra criada";
+	}
+	
+	/**
+	 * Adiciona relação VIEWED entre pessoa e produto
+	 * @param personId
+	 * @param productId
+	 * @return
+	 */
+	@Path("/{personId}/viewed/{productId}")
+	@POST
+	@Consumes("text/xml")
+	@Produces("application/json")
+	public String addViewedRelationship(@PathParam("personId") int personId, @PathParam("productId") int productId){
+		personUtil.addViewedProduct(personId, productId);
+		
+		log.info("Created VIEWED relationship between product " + productId + " and Person " + personId);
+		return "Relação de visualização criada";
+	}
+	
+	/**
+	 * Adiciona relação ADDED_TO_CART entre pessoa e produto
+	 * @param personId
+	 * @param productId
+	 * @return
+	 */
+	@Path("/{personId}/added-to-cart/{productId}")
+	@POST
+	@Consumes("text/xml")
+	@Produces("application/json")
+	public String addAddedToCartRelationship(@PathParam("personId") int personId, @PathParam("productId") int productId){
+		personUtil.addCartProduct(personId, productId);
+		
+		log.info("Created ADDED_TO_CART relationship between product " + productId + " and Person " + personId);
+		return "Relação de adicionar ao carrinho criada";
+	}
+
 }

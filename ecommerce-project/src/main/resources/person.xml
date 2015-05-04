@@ -16,7 +16,7 @@
 
    <context:component-scan base-package="br.com.ecommerce.services" />
 
-   <neo4j:config storeDirectory="C:\Users\Caroline\Documents\Neo4J-ecommerce" 
+   <neo4j:config storeDirectory="C:\Users\Caroline\Documents\neo4j-ecommerce-db" 
       base-package="br.com.ecommerce.domain"/>
 
    <neo4j:repositories base-package="br.com.ecommerce.dao"/>

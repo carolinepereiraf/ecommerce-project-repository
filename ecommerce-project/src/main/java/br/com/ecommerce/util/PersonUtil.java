@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import br.com.ecommerce.domain.Person;
+import br.com.ecommerce.domain.Product;
 import br.com.ecommerce.services.PersonService;
 
 /**
@@ -32,7 +33,7 @@ public class PersonUtil {
 	 */
 	public Person createPerson(long id, String name, String email) {
 		Person person = getOnePersonById(id);
-		if(person != null){
+		if (person != null) {
 			return null;
 		}
 		person = new Person();
@@ -71,9 +72,33 @@ public class PersonUtil {
 		List<Person> list = service.findAll();
 		return list;
 	}
-	
+
 	public List<Person> listAllLimitBy(int limit) {
 		List<Person> list = service.findAllLimitBy(limit);
 		return list;
+	}
+
+	public void addViewedProduct(long personId, long productId) {
+		Person person = getOnePersonById(personId);
+		Product product = getProduct(productId);
+		service.addViewedProduct(person, product);
+	}
+
+	public void addBoughtProduct(long personId, long productId) {
+		Person person = getOnePersonById(personId);
+		Product product = getProduct(productId);
+		service.addBoughtProduct(person, product);
+	}
+
+	public void addCartProduct(long personId, long productId) {
+		Person person = getOnePersonById(personId);
+		Product product = getProduct(productId);
+		service.addCartProduct(person, product);
+	}
+
+	private Product getProduct(long productId) {
+		ProductUtil productUtil = new ProductUtil();
+		Product product = productUtil.getOneProductById(productId);
+		return product;
 	}
 }

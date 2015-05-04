@@ -15,11 +15,11 @@ import br.com.ecommerce.services.ProductService;
 public class ProductUtil {
 
 	private ApplicationContext context;
-	private ProductService service;
+	private ProductService productService;
 	
 	public ProductUtil() {
 		context = new ClassPathXmlApplicationContext("product.xml");
-		service = (ProductService) context.getBean("productService");
+		productService = (ProductService) context.getBean("productService");
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class ProductUtil {
 		product.setProductId(id);
 		product.setName(name);
 		product.setPrice(price);
-		return service.create(product);
+		return productService.create(product);
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class ProductUtil {
 	 * @return
 	 */
 	public Product getOneProductById(long id) {
-		return service.findByProductId(id);
+		return productService.findByProductId(id);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class ProductUtil {
 	public boolean deleteProduct(long id) {
 		Product product = getOneProductById(id);
 		if (product != null) {
-			service.delete(product);
+			productService.delete(product);
 			return true;
 		} else {
 			return false;
@@ -63,12 +63,12 @@ public class ProductUtil {
 	}
 	
 	public List<Product> listAll() {
-		List<Product> list = service.findAll();
+		List<Product> list = productService.findAll();
 		return list;
 	}
 	
 	public List<Product> listAllLimitBy(int limit) {
-		List<Product> list = service.findAllLimitBy(limit);
+		List<Product> list = productService.findAllLimitBy(limit);
 		return list;
 	}
 }

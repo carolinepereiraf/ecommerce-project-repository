@@ -1,24 +1,37 @@
 package br.com.ecommerce.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 @NodeEntity
 public class Person {
 
 	@GraphId
 	private Long id;
-	
+
 	private long personId;
 
 	private String email;
 
 	private String name;
 
+	@RelatedTo(type = "VIEWED")
+	private Set<Product> viewedProducts;
+
+	@RelatedTo(type = "ADDED_TO_CART")
+	private Set<Product> cartProducts;
+
+	@RelatedTo(type = "BOUGHT")
+	private Set<Product> boughtProducts;
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public long getPersonId() {
 		return personId;
 	}
@@ -41,6 +54,57 @@ public class Person {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Product> getViewedProducts() {
+		return viewedProducts;
+	}
+
+	public void addViewedProduct(Product viewedProduct) {
+		if (viewedProducts == null) {
+			viewedProducts = new HashSet<Product>();
+		}
+		viewedProducts.add(viewedProduct);
+	}
+
+	public void removeViewedProduct(Product viewedProduct) {
+		if (viewedProducts != null && !viewedProducts.isEmpty()) {
+			viewedProducts.remove(viewedProduct);
+		}
+	}
+
+	public Set<Product> getCartProducts() {
+		return cartProducts;
+	}
+
+	public void addCartProduct(Product cartProduct) {
+		if (cartProducts == null) {
+			cartProducts = new HashSet<Product>();
+		}
+		cartProducts.add(cartProduct);
+	}
+
+	public void removeCartProduct(Product cartProduct) {
+		if (cartProducts != null && !cartProducts.isEmpty()) {
+			cartProducts.remove(cartProduct);
+		}
+	}
+
+	public Set<Product> getBoughtProducts() {
+		return boughtProducts;
+	}
+	
+	public void addBoughtProduct(Product boughtProduct) {
+		if (boughtProducts == null) {
+			boughtProducts = new HashSet<Product>();
+		}
+		boughtProducts.add(boughtProduct);
+	}
+
+	public void removeBoughtProduct(Product boughtProduct) {
+		if (boughtProducts != null && !boughtProducts.isEmpty()) {
+			boughtProducts.remove(boughtProduct);
+		}
 	}
 
 	@Override
@@ -82,6 +146,5 @@ public class Person {
 			return false;
 		return true;
 	}
-
 
 }
