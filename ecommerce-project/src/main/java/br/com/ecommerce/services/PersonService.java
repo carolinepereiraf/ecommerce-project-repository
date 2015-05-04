@@ -1,6 +1,6 @@
 package br.com.ecommerce.services;
 
-import org.springframework.data.neo4j.conversion.Result;
+import java.util.List;
 
 import br.com.ecommerce.domain.Person;
 
@@ -9,8 +9,11 @@ public interface PersonService {
 	Person create(Person person);
 
 	void delete(Person person);
+	
+	Person findByPersonId(long id);
 
-	Person findById(long id);
-
-	Result<Person> findAll();
+	List<Person> findAll();
+	
+	List<Person> findAllLimitBy(int limit);
+	
 }

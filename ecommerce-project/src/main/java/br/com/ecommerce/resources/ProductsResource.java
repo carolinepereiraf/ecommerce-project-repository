@@ -14,8 +14,8 @@ import javax.ws.rs.QueryParam;
 
 import org.apache.log4j.Logger;
 
-import br.com.commerce.util.ProductUtil;
 import br.com.ecommerce.domain.Product;
+import br.com.ecommerce.util.ProductUtil;
 
 @Path("/products")
 public class ProductsResource {

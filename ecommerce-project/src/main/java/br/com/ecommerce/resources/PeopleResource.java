@@ -2,7 +2,6 @@ package br.com.ecommerce.resources;
 
 import java.util.List;
 
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -15,8 +14,8 @@ import javax.ws.rs.QueryParam;
 
 import org.apache.log4j.Logger;
 
-import br.com.commerce.util.PersonUtil;
 import br.com.ecommerce.domain.Person;
+import br.com.ecommerce.util.PersonUtil;
 
 @Path("/people")
 public class PeopleResource {
@@ -38,12 +37,13 @@ public class PeopleResource {
 	@Produces("application/json")
 	public List<Person> getPeople(@QueryParam("limit") int limit) {
 
-		log.info("Returning people, limit = " + limit);
-
 		if (limit == 0) {
+			log.info("Returning all people");
 			return personUtil.listAll();
 		}
-		return personUtil.listAll();
+
+		log.info("Returning people, limit = " + limit);
+		return personUtil.listAllLimitBy(limit);
 	}
 
 	/**
@@ -79,10 +79,15 @@ public class PeopleResource {
 	public String addPerson(@FormParam("personId") long personId,
 			@FormParam("email") String email, @FormParam("name") String name) {
 
-		Person person = personUtil.createPerson(personId, email, name);
-		log.info("Person " + person.getName() + " successfully added.");
-
-		String message = person.getName() + " adicionado com sucesso.";
+		Person person = personUtil.createPerson(personId, name, email);
+		String message = null;
+		if (person == null) {
+			log.info("A person with this personId already exists.");
+			message = "Já existe uma pessoa para este ID.";
+		} else {
+			log.info("Person " + person.getName() + " successfully added.");
+			message = person.getName() + " adicionado com sucesso.";
+		}
 		return message;
 	}
 

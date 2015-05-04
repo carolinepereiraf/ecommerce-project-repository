@@ -1,7 +1,8 @@
 package br.com.ecommerce.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.stereotype.Service;
 
 import br.com.ecommerce.dao.PersonRepository;
@@ -15,6 +16,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Person create(Person person) {
+		System.out.println("PersonServiceImpl.create()");
 		return personRepository.save(person);
 	}
 
@@ -22,15 +24,20 @@ public class PersonServiceImpl implements PersonService {
 	public void delete(Person person) {
 		personRepository.delete(person);
 	}
-
+	
 	@Override
-	public Person findById(long id) {
-		return personRepository.findById(id);
+	public Person findByPersonId(long id){
+		return personRepository.getPersonByPersonId(id);
 	}
 
 	@Override
-	public Result<Person> findAll() {
-		return personRepository.findAll();
+	public List<Person> findAll() {
+		return personRepository.getAllPeople();
+	}
+	
+	@Override
+	public List<Person> findAllLimitBy(int limit) {
+		return personRepository.getAllPeopleLimitBy(limit);
 	}
 
 }

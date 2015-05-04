@@ -1,12 +1,9 @@
-package br.com.commerce.util;
+package br.com.ecommerce.util;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.neo4j.conversion.Result;
 
 import br.com.ecommerce.domain.Person;
 import br.com.ecommerce.services.PersonService;
@@ -34,8 +31,12 @@ public class PersonUtil {
 	 * @return
 	 */
 	public Person createPerson(long id, String name, String email) {
-		Person person = new Person();
-		person.setId(id);
+		Person person = getOnePersonById(id);
+		if(person != null){
+			return null;
+		}
+		person = new Person();
+		person.setPersonId(id);
 		person.setName(name);
 		person.setEmail(email);
 		return service.create(person);
@@ -48,7 +49,7 @@ public class PersonUtil {
 	 * @return
 	 */
 	public Person getOnePersonById(long id) {
-		return service.findById(id);
+		return service.findByPersonId(id);
 	}
 
 	/**
@@ -67,12 +68,12 @@ public class PersonUtil {
 	}
 
 	public List<Person> listAll() {
-		List<Person> list = new ArrayList<Person>();
-		Result<Person> result = service.findAll();
-		Iterator<Person> iterator = result.iterator();
-		while (iterator.hasNext()) {
-			list.add(iterator.next());
-		}
+		List<Person> list = service.findAll();
+		return list;
+	}
+	
+	public List<Person> listAllLimitBy(int limit) {
+		List<Person> list = service.findAllLimitBy(limit);
 		return list;
 	}
 }

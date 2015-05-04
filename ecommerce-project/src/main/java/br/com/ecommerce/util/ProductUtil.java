@@ -1,4 +1,4 @@
-package br.com.commerce.util;
+package br.com.ecommerce.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;

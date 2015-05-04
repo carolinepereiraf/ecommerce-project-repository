@@ -8,6 +8,8 @@ public class Person {
 
 	@GraphId
 	private Long id;
+	
+	private long personId;
 
 	private String email;
 
@@ -16,9 +18,13 @@ public class Person {
 	public Long getId() {
 		return id;
 	}
+	
+	public long getPersonId() {
+		return personId;
+	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPersonId(long personId) {
+		this.personId = personId;
 	}
 
 	public String getEmail() {
@@ -44,6 +50,7 @@ public class Person {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (int) (personId ^ (personId >>> 32));
 		return result;
 	}
 
@@ -70,6 +77,8 @@ public class Person {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (personId != other.personId)
 			return false;
 		return true;
 	}
